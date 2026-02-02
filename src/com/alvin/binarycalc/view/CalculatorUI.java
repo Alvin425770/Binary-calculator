@@ -4,6 +4,8 @@ import com.alvin.binarycalc.model.BinaryNumber;
 import com.alvin.binarycalc.model.BinaryOperation;
 import com.alvin.binarycalc.model.operations.BinaryAddition;
 import com.alvin.binarycalc.model.operations.BinarySubtraction;
+import com.alvin.binarycalc.model.operations.BinaryMultiplication;
+
 
 import javax.swing.*;
 import java.awt.*;
@@ -44,6 +46,9 @@ public class CalculatorUI extends JFrame {
         JButton addButton = new JButton(" + ");
         add(addButton);
 
+        JButton multiplyButton = new JButton(" x ");
+        add(multiplyButton);
+
         resultLabel = new JLabel("Result:");
         add(resultLabel);
 
@@ -61,6 +66,14 @@ public class CalculatorUI extends JFrame {
                                             performOperation(new BinaryAddition());
                                         }
                                     });
+
+        multiplyButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                performOperation(new BinaryMultiplication());
+
+            }
+        });
 
 
         setVisible(true);//window appear
