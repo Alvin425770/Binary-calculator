@@ -3,6 +3,7 @@ package com.alvin.binarycalc.view;
 import com.alvin.binarycalc.model.BinaryNumber;
 import com.alvin.binarycalc.model.BinaryOperation;
 import com.alvin.binarycalc.model.operations.BinaryAddition;
+import com.alvin.binarycalc.model.operations.BinaryDivision;
 import com.alvin.binarycalc.model.operations.BinarySubtraction;
 import com.alvin.binarycalc.model.operations.BinaryMultiplication;
 
@@ -49,6 +50,9 @@ public class CalculatorUI extends JFrame {
         JButton multiplyButton = new JButton(" x ");
         add(multiplyButton);
 
+        JButton divideButton = new JButton(" / ");
+        add(divideButton);
+
         resultLabel = new JLabel("Result:");
         add(resultLabel);
 
@@ -75,6 +79,14 @@ public class CalculatorUI extends JFrame {
             }
         });
 
+        divideButton.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+
+                performOperation(new BinaryDivision());
+            }
+        });
+
 
         setVisible(true);//window appear
 
@@ -92,6 +104,7 @@ public class CalculatorUI extends JFrame {
             resultLabel.setText("Result: " + result.getValue());
         }
         catch (IllegalArgumentException ex){
+            //handles invalid binary input
             resultLabel.setText("Result: ");
 
             JOptionPane.showMessageDialog(
@@ -101,6 +114,17 @@ public class CalculatorUI extends JFrame {
                     JOptionPane.ERROR_MESSAGE
             );
 
+        }
+
+        catch (ArithmeticException ex){
+            //handles divide by zero
+            resultLabel.setText("Result: Error");
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Cannot divide by zero!",
+                    "Math Error",
+                    JOptionPane.ERROR_MESSAGE
+            );
         }
     }
     public static void main(String[] args){
